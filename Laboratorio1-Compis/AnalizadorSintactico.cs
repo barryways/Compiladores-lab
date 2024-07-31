@@ -110,7 +110,7 @@ namespace Laboratorio1_Compis
                             }
                             else
                             {
-                                throw new Exception("Se esperaba " + pila.Peek() + " y se encontro " + lookahead);   
+                                throw new Exception("Se esperaba " + pila.Peek() + " y se encontro " + lookahead);
                             }
                         }
                         break;
@@ -218,6 +218,20 @@ namespace Laboratorio1_Compis
                             }
                         }
                         break;
+                    case "variablesComienza":
+                        {
+                            if (pila.Peek() == lookahead)
+                            {
+                                tokens.Remove(tokens[0]);
+                                pila.Pop();
+                            }
+                            else
+                            {
+                                throw new Exception("Se esperaba " + pila.Peek() + " y se encontro " + lookahead);
+                            }
+                        }
+                        break;
+
                     case "identificador":
                         {
                             if (pila.Peek() == lookahead)
@@ -239,37 +253,36 @@ namespace Laboratorio1_Compis
                         break;
                     case "StmtList":
                         {
-                            if (lookahead == "StmtList")
-                            {
-                                pila.Pop();
-                                pila.Push("Stmt");
-                                pila.Push("StmtList");
-                            }
-                            else
-                            {
-                                pila.Pop();
-                            }
-
+                            pila.Pop();
+                            pila.Push("Stmt");
                         }
                         break;
                     case "Stmt":
                         {
-                            if (lookahead == "VarDecl")
+                            if (lookahead == "variablesComienza" || lookahead == "tipadoBin" || lookahead == "tipadoOct" || lookahead == "tipadoHex" )
+                            {
+                                if(lookahead == "variablesComienza")
+                                    tokens.Remove(tokens[0]);
+                                pila.Pop();
+                                pila.Push("Stmt");
+                                pila.Push("VarDecl");
+                            }
+                            else if (lookahead == "expresionComienza")
                             {
                                 pila.Pop();
-                                pila.Push("VarDecl");
+                                pila.Push("Stmt");
+                                pila.Push("ExprStmt");
                             }
                             else
                             {
                                 pila.Pop();
-                                pila.Push("ExprStmt");
                             }
 
                         }
                         break;
                     case "VarDecl":
                         {
-                            if (lookahead == "oct")
+                            if (lookahead == "tipadoOct")
                             {
                                 pila.Pop();
                                 pila.Push("puntoComa");
@@ -278,7 +291,7 @@ namespace Laboratorio1_Compis
                                 pila.Push("identificador");
                                 pila.Push("tipadoOct");
                             }
-                            else if (lookahead == "bin")
+                            else if (lookahead == "tipadoBin")
                             {
                                 pila.Pop();
                                 pila.Push("puntoComa");
@@ -395,7 +408,7 @@ namespace Laboratorio1_Compis
                     default:
                         throw new Exception("Simbolo no esperado ");
                 }
-                
+
             }
             if (pila.Count() > 0)
                 return 0;

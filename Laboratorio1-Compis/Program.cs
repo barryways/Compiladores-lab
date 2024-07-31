@@ -12,7 +12,7 @@ namespace Macrosystems
 
             //Console.WriteLine("Ingrese la expresión aritmética:");
             //string input = Console.ReadLine();
-            string input = "var: oct numero1 = 0;\r\nbin numero2 = 7;\r\nhex numero3 = 1A3F;\r\n\r\nexp: (numero2 - 10) + numero3;";
+            string input = "var: oct numero1 = 7;\r\nbin numero2 = 0;\r\nhex numero3 = A3F;\r\n\r\nexp: (numero2 - 10) + numero3;";
             try
             {
                 AnalizadorLexico analizador = new AnalizadorLexico(input);
@@ -21,21 +21,21 @@ namespace Macrosystems
                 List<string> tokensAPasar = new List<string>();
                 foreach (Token token in tokens)
                 {
-                    Console.WriteLine($"Token: {token.Type.ToString()} Value: {token.Value.ToString()}");
-                    //tokensAPasar.Add(token.Type.ToString());
+                    //Console.WriteLine($"Token: {token.Type.ToString()} Value: {token.Value.ToString()}");
+                    tokensAPasar.Add(token.Type.ToString());
                 }
-                //int valor = analizadorSintactico.parsear(tokensAPasar);
+                int valor = analizadorSintactico.parsear(tokensAPasar);
 
-                //if (valor == 1)
-                //{
-                //    Console.WriteLine("Salio todo bien");
+                if (valor == 1)
+                {
+                    Console.WriteLine("Salio todo bien");
 
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Tal vez tengas un pequeño error");
-                //}
-               
+                }
+                else
+                {
+                    Console.WriteLine("Tal vez tengas un pequeño error");
+                }
+
 
                 Console.WriteLine("La expresión es sintácticamente correcta.");
             }
