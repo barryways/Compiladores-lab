@@ -23,6 +23,7 @@ namespace Laboratorio1_Compis
             { @"=", TokenType.sigIgual },
             { @";", TokenType.puntoComa },
             { @"exp:", TokenType.expresionComienza },
+            { @"var:", TokenType.variablesComienza },
             { @"\+", TokenType.sigMas },
             { @"\-", TokenType.sigMenos },
             { @"\*", TokenType.sigMultiplicar },

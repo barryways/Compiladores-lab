@@ -24,6 +24,7 @@ namespace Laboratorio1_Compis
         sigIgual,
         puntoComa,
         expresionComienza,
+        variablesComienza,
         tipadoBin,
         tipadoOct,
         tipadoHex,
