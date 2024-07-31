@@ -16,12 +16,26 @@ namespace Macrosystems
             try
             {
                 AnalizadorLexico analizador = new AnalizadorLexico(input);
+                AnalizadorSintactico analizadorSintactico = new AnalizadorSintactico();
                 List<Token> tokens = analizador.Tokenizador();
+                List<string> tokensAPasar = new List<string>();
                 foreach (Token token in tokens)
                 {
-                    Console.WriteLine(token.Type.ToString() + " " +token.Value.ToString());
+                    tokensAPasar.Add(token.Type.ToString());
                 }
-                Console.WriteLine(tokens.Count);
+                int valor = analizadorSintactico.parsear(tokensAPasar);
+
+                if (valor == 1)
+                {
+                    Console.WriteLine("Salio todo bien");
+
+                }
+                else
+                {
+                    Console.WriteLine("Tal vez tengas un pequeño error");
+                }
+               
+
                 Console.WriteLine("La expresión es sintácticamente correcta.");
             }
             catch (Exception ex)
