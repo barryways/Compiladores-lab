@@ -218,6 +218,19 @@ namespace Laboratorio1_Compis
                             }
                         }
                         break;
+                    case "EOF":
+                        {
+                            if (pila.Peek() == lookahead)
+                            {
+                                tokens.Remove(tokens[0]);
+                                pila.Pop();
+                            }
+                            else
+                            {
+                                throw new Exception("Se esperaba " + pila.Peek() + " y se encontro " + lookahead);
+                            }
+                        }
+                        break;
                     case "variablesComienza":
                         {
                             if (pila.Peek() == lookahead)
@@ -259,9 +272,9 @@ namespace Laboratorio1_Compis
                         break;
                     case "Stmt":
                         {
-                            if (lookahead == "variablesComienza" || lookahead == "tipadoBin" || lookahead == "tipadoOct" || lookahead == "tipadoHex" )
+                            if (lookahead == "variablesComienza" || lookahead == "tipadoBin" || lookahead == "tipadoOct" || lookahead == "tipadoHex")
                             {
-                                if(lookahead == "variablesComienza")
+                                if (lookahead == "variablesComienza")
                                     tokens.Remove(tokens[0]);
                                 pila.Pop();
                                 pila.Push("Stmt");
@@ -272,6 +285,11 @@ namespace Laboratorio1_Compis
                                 pila.Pop();
                                 pila.Push("Stmt");
                                 pila.Push("ExprStmt");
+                            }
+                            else if (lookahead == "EOF")
+                            {
+                                pila.Pop();
+                                pila.Push("EOF");
                             }
                             else
                             {
@@ -336,12 +354,16 @@ namespace Laboratorio1_Compis
                                 pila.Push("Term");
                                 pila.Push("sigMas");
                             }
-                            else
+                            else if (lookahead == "sigMenos")
                             {
                                 pila.Pop();
                                 pila.Push("ExprPrime");
                                 pila.Push("Term");
                                 pila.Push("sigMenos");
+                            }
+                            else
+                            {
+                                pila.Pop();
                             }
                         }
                         break;
@@ -358,15 +380,15 @@ namespace Laboratorio1_Compis
                             {
                                 pila.Pop();
                                 pila.Push("ExprPrime");
-                                pila.Push("Term");
-                                pila.Push("sigMas");
+                                pila.Push("Factor");
+                                pila.Push("sigMultiplicar");
                             }
                             else if (lookahead == "sigDividir")
                             {
                                 pila.Pop();
                                 pila.Push("ExprPrime");
-                                pila.Push("Term");
-                                pila.Push("sigMenos");
+                                pila.Push("Factor");
+                                pila.Push("sigDividir");
                             }
                             else
                             {
@@ -376,7 +398,14 @@ namespace Laboratorio1_Compis
                         break;
                     case "Factor":
                         {
-                            if (lookahead == "identificador")
+                            if (lookahead == "parAbierto")
+                            {
+                                pila.Pop();
+                                pila.Push("parCerrado");
+                                pila.Push("Expr");
+                                pila.Push("parAbierto");
+                            }
+                            else if (lookahead == "identificador")
                             {
                                 pila.Pop();
                                 pila.Push("identificador");

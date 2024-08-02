@@ -12,7 +12,7 @@ namespace Macrosystems
 
             //Console.WriteLine("Ingrese la expresión aritmética:");
             //string input = Console.ReadLine();
-            string input = "var: oct numero1 = 7;\r\nbin numero2 = 0;\r\nhex numero3 = A3F;\r\n\r\nexp: (numero2 - 10) + numero3;";
+            string input = "var: oct numero1 = 7;\r\nbin numero2 = 011;\r\nhex numero3 = A3F;\r\n\r\nexp: (numero2 - 10) + numero3;";
             try
             {
                 AnalizadorLexico analizador = new AnalizadorLexico(input);
@@ -21,7 +21,7 @@ namespace Macrosystems
                 List<string> tokensAPasar = new List<string>();
                 foreach (Token token in tokens)
                 {
-                    //Console.WriteLine($"Token: {token.Type.ToString()} Value: {token.Value.ToString()}");
+                    Console.WriteLine($"Token: {token.Type.ToString()} Value: {token.Value.ToString()}");
                     tokensAPasar.Add(token.Type.ToString());
                 }
                 int valor = analizadorSintactico.parsear(tokensAPasar);

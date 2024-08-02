@@ -30,9 +30,9 @@ namespace Laboratorio1_Compis
             { @"\/", TokenType.sigDividir },
             { @"\(", TokenType.parAbierto },
             { @"\)", TokenType.parCerrado },
-            { @"[0-1]+", TokenType.noBin },
-            { @"[0-7]+", TokenType.noOct },
-            { @"[0-9A-Fa-f]+", TokenType.noHex },
+            { @"([0-1])+", TokenType.noBin },
+            { @"([0-7])+", TokenType.noOct },
+            { @"([0-9A-Fa-f])+", TokenType.noHex },
             { @"[a-zA-Z_][a-zA-Z0-9_]*", TokenType.identificador },
         };
 
